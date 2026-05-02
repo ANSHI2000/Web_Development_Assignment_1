@@ -1,0 +1,44 @@
+<!-- Problem Statement 4
+Design a web page that is self-modifying itself after every minute.
+-->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Self Modifying Page</title>
+<style>
+body {
+text-align: center; font-family: Arial;
+transition: background-color 1s;
+margin-top: 150px;
+}
+
+
+h1 {
+font-size: 40px;
+}
+</style>
+<script>
+let minuteCount = 0; function modifyPage() {
+minuteCount++; document.getElementById("title").innerHTML =
+"Page Modified " + minuteCount + " minute";
+let colors = ["lightblue", "lightgreen", "lightpink", "lightyellow", "lavender", "Red","Dark Blue","Dark Green","Dark Red"];
+let randomColor = colors[Math.floor(Math.random() * colors.length)]; document.body.style.backgroundColor = randomColor;
+
+let newPara = document.createElement("p");
+newPara.innerHTML = "Modification happened at: " + new Date().toLocaleTimeString();
+document.body.appendChild(newPara);
+}
+setInterval(modifyPage, 1000);
+</script>
+</head>
+
+
+<body>
+
+
+<h1 id="title">Page Loaded</h1>
+<p>Wait for one minute to see changes...</p>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!--Problem Statement 4
+Create a web page to show transition effect in such a way so that elements graduallychange from one style to another style.
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CSS Transition Effect</title>
+
+
+<style>
+body {
+font-family: Arial, sans-serif; padding: 40px;
+background-color: #d92c2c;
+}
+
+
+.box {
+width: 200px; height: 200px;
+background-color: steelblue; color: rgba(224, 188, 10, 0.92); text-align: center;
+line-height: 200px; font-size: 18px;
+transition: background-color 0.2s transform 0.2s,
+border-radius 0.2s;
+
+}
+
+
+.box:hover {
+background-color: tomato; transform: scale(1.2); border-radius: 50%;
+}
+</style>
+</head>
+<body>
+
+
+<h2>CSS Transition Example</h2>
+<div class="box">Hover Me</div>
+
+
+</body>
+</html>

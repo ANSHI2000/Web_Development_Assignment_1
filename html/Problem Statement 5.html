@@ -1,0 +1,91 @@
+<!-- Problem Statement 5
+ Demonstrate the use of following HTML5 Tags:
+
+I.<Video>
+II.<Audio>
+III.<Header>
+IV.<Footer>
+V.<Nav>
+VI.<Embed>
+VII.<Datalist>
+VIII.<Bdi>
+IX.<Article>
+X.<Output>
+-->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HTML5 Tags Demonstration</title>
+</head>
+<body bgcolor="blue" text="yellow">
+<header>
+<h1>HTML5 Tags Demo Page</h1>
+<p>This page demonstrates important HTML5 tags.</p>
+</header>
+<nav>
+<a href="#article">Article</a> |
+<a href="#media">Media</a> |
+<a href="#form">Form</a>
+<hr>
+<article id="article">
+<h2>Article Tag</h2>
+<p>My name is Shabdarth, I am currently pursuing B.tech from Graphic Era Hill University.Bellow there are HTML5 Tags </p>
+</article>
+<hr>
+<section id="media">
+<h2>Video Tag</h2>
+<video width="320" height="240" controls>
+<source src="sample.mp4" type="video/mp4">
+</video>
+
+
+<h2>Audio Tag</h2>
+<audio controls>
+<source src="sample.mp3" type="audio/mpeg">
+</audio>
+</section>
+<hr>
+<h2>Embed Tag</h2>
+<embed src="sample.pdf" width="300" height="200">
+<hr>
+<section id="form">
+<h2>Datalist and Output Tags</h2>
+<form oninput="result.value=parseInt(a.value)+parseInt(b.value)">
+<label>Choose a city:</label>
+<input list="cities" name="city">
+<datalist id="cities">
+
+
+<option value="Delhi">
+<option value="Mumbai">
+<option value="Dehradun">
+<option value="Bangalore">
+</datalist>
+<br><br>
+<label>Number 1:</label>
+<input type="number" id="a" value="0">
+<label>Number 2:</label>
+<input type="number" id="b" value="0">
+<br><br>
+
+
+Result: <output name="result" for="a b">0</output>
+</form>
+</section>
+<hr>
+<h2>BDI Tag</h2>
+<p>Usernames:</p>
+<ul>
+<li><bdi>Shabdarth</bdi> : 95</li>
+<li><bdi>مستخدم fhgfghfgfg</bdi> : 88</li>
+</ul>
+<hr>
+<footer>
+<p>&copy; 2026 WEB DEV LAB</p>
+</footer>
+</body>
+</html>
