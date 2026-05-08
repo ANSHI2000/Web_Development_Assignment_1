@@ -71,6 +71,15 @@ Visit: `http://localhost:8000`
 4. React
 5. PHP
 
+## 🌐 Deploy on Railway
+
+1. Go to [railway.app](https://railway.app)
+2. Sign in with GitHub
+3. Click "New Project" → "Deploy from GitHub repo"
+4. Select `Web_Development_Assignment_1`
+5. Railway auto-detects `Procfile` and deploys
+6. Your app will be live in minutes!
+
 ---
 
 **Start the servers and visit `http://localhost:8000` to begin!**
