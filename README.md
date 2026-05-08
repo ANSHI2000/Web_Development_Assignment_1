@@ -2,6 +2,11 @@
 
 ## 🚀 Quick Start
 
+## Vercel Deployed link
+```bash
+web-development-assignment-1-lac.vercel.app
+```
+
 ### Start Python Server
 ```bash
 python -m http.server 8000
