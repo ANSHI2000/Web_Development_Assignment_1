@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Development Assignment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            color: #333;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .category-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .category-card p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #45a049;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Web Development Assignment</h1>
+            <p>Click on any category to view problems and solutions</p>
+        </header>
+
+        <div class="categories">
+            <div class="category-card">
+                <div class="icon">📄</div>
+                <div class="category-name">HTML</div>
+                <p>Learn HTML fundamentals and structure</p>
+                <a href="categories/html.html" class="btn">View Problems</a>
+            </div>
+
+            <div class="category-card">
+                <div class="icon">🎨</div>
+                <div class="category-name">CSS</div>
+                <p>Master styling and design</p>
+                <a href="categories/css.html" class="btn">View Problems</a>
+            </div>
+
+            <div class="category-card">
+                <div class="icon">⚡</div>
+                <div class="category-name">JavaScript</div>
+                <p>Explore dynamic programming</p>
+                <a href="categories/javascript.html" class="btn">View Problems</a>
+            </div>
+
+            <div class="category-card">
+                <div class="icon">⚛️</div>
+                <div class="category-name">React</div>
+\
+                <p>Build modern UI components</p>
+                <a href="categories/react.html" class="btn">View Problems</a>
+            </div>
+
+            <div class="category-card">
+                <div class="icon">🐘</div>
+                <div class="category-name">PHP</div>
+                <p>Server-side programming</p>
+                <a href="categories/php.html" class="btn">View Problems</a>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2024 Web Development Assignment Portal</p>
+        </footer>
+    </div>
+</body>
+</html>

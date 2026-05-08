@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problem Viewer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        header {
+            background: white;
+            padding: 15px 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        header h1 {
+            color: #333;
+            font-size: 24px;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .back-btn, .reset-btn {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover, .reset-btn:hover {
+            background: #764ba2;
+        }
+
+        .reset-btn {
+            background: #dc3545;
+        }
+
+        .reset-btn:hover {
+            background: #c82333;
+        }
+
+        .problem-description {
+            background: #e7f3ff;
+            border-bottom: 2px solid #b3d9ff;
+            padding: 15px 20px;
+            color: #004085;
+            font-size: 15px;
+        }
+
+        .content {
+            display: flex;
+            flex: 1;
+            gap: 1px;
+            background: #ddd;
+            min-height: 0;
+        }
+
+        .content.react-view .panel:nth-child(2) {
+            display: none;
+        }
+
+        .content.react-view .panel:nth-child(1) {
+            flex: 0.5;
+        }
+
+        .content.react-view .panel:nth-child(3) {
+            flex: 0.5;
+            display: flex;
+        }
+
+        .reference-panel {
+            display: none;
+            flex-direction: column;
+        }
+
+        .reference-panel.active {
+            display: flex;
+        }
+
+        .content:not(.react-view) .reference-panel {
+            display: none !important;
+        }
+
+        .reference-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 10px;
+            background: white;
+        }
+
+        .panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            min-width: 0;
+        }
+
+        .panel-header {
+            background: #667eea;
+            color: white;
+            padding: 12px 15px;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .panel-content {
+            flex: 1;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        textarea {
+            flex: 1;
+            border: none;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            resize: none;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            overflow-y: auto;
+        }
+
+        textarea:focus {
+            outline: none;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .preview-content {
+            flex: 1;
+            overflow: auto;
+            background: white;
+        }
+
+        .note-box {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 5px;
+            color: #856404;
+        }
+
+        .error-box {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 5px;
+            color: #721c24;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #999;
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-controls {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 id="title">Problem Viewer</h1>
+            <div class="header-controls">
+                <button class="reset-btn" onclick="resetCode()">↻ Reset Code</button>
+                <button class="back-btn" onclick="goBack()">← Back</button>
+            </div>
+        </header>
+
+        <div class="problem-description" id="problemDesc"></div>
+
+        <div class="content">
+            <!-- Code Editor Panel -->
+            <div class="panel">
+                <div class="panel-header">📝 Edit Code</div>
+                <div class="panel-content">
+                    <textarea id="codeEditor" placeholder="Loading code..."></textarea>
+                </div>
+            </div>
+
+            <!-- Live Preview Panel -->
+            <div class="panel">
+                <div class="panel-header">🎯 Live Preview</div>
+                <div class="panel-content">
+                    <div class="preview-content" id="previewPanel">
+                        <div class="loading">Preview loading...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reference Image Panel (React Only) -->
+            <div class="panel reference-panel" id="referencePanel">
+                <div class="panel-header">📸 Expected Output</div>
+                <div class="panel-content" style="overflow: auto; display: flex; align-items: center; justify-content: center;">
+                    <img class="reference-image" id="referenceImage" alt="Reference output" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- React & Babel CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script>
+        // State
+        let currentCategory = '';
+        let currentProblem = '';
+        let originalCode = '';
+        let updateTimer = null;
+
+        const problemDescriptions = {
+            html: {
+                1: "Demonstrate all the text formatting tags in a single HTML page.",
+                2: "Problem 2 - HTML",
+                3: "Problem 3 - HTML",
+                4: "Problem 4 - HTML",
+                5: "Problem 5 - HTML"
+            },
+            css: {
+                1: "Create a web page to show all hyperlinks with different colors for default, active, visited, and hover states.",
+                2: "Problem 2 - CSS",
+                3: "Problem 3 - CSS",
+                4: "Problem 4 - CSS",
+                5: "Problem 5 - CSS"
+            },
+            javascript: {
+                1: "Design a web page to validate name, email, and password according to standard conditions.",
+                2: "Problem 2 - JavaScript",
+                3: "Problem 3 - JavaScript",
+                4: "Problem 4 - JavaScript",
+                5: "Problem 5 - JavaScript"
+            },
+            react: {
+                1: "Create a functional component that accepts props and displays a personalized message.",
+                2: "Problem 2 - React",
+                3: "Problem 3 - React",
+                4: "Problem 4 - React",
+                5: "Problem 5 - React"
+            },
+            php: {
+                1: "Create a web page to maintain a session using PHP.",
+                2: "Problem 2 - PHP",
+                3: "Problem 3 - PHP",
+                4: "Problem 4 - PHP",
+                5: "Problem 5 - PHP"
+            }
+        };
+
+        const fileMap = {
+            html: (num) => `html/Problem Statement ${num}.html`,
+            css: (num) => `css/Problem Statement ${num}.html`,
+            javascript: (num) => `javascript/Problem Statement ${num}.html`,
+            react: (num) => `react/Problem Statement ${num}.js`,
+            php: (num) => `php/Problem Statement ${num}.php`
+        };
+
+        // Initialize
+        function init() {
+            const urlParams = new URLSearchParams(window.location.search);
+            currentCategory = urlParams.get('category');
+            currentProblem = urlParams.get('problem');
+
+            if (!currentCategory || !currentProblem) {
+                document.getElementById('codeEditor').value = 'Error: Invalid problem parameters';
+                return;
+            }
+
+            const categoryName = currentCategory.charAt(0).toUpperCase() + currentCategory.slice(1);
+            document.getElementById('title').textContent = `${categoryName} - Problem ${currentProblem}`;
+            document.getElementById('problemDesc').textContent = problemDescriptions[currentCategory][currentProblem];
+
+            // Show reference panel for React
+            if (currentCategory === 'react') {
+                const content = document.querySelector('.content');
+                content.classList.add('react-view');
+                const refPanel = document.getElementById('referencePanel');
+                refPanel.classList.add('active');
+                const refImage = document.getElementById('referenceImage');
+                refImage.src = `react/p${currentProblem}.jpeg`;
+            }
+
+            loadProblem();
+
+            // Setup editor
+            const editor = document.getElementById('codeEditor');
+            editor.addEventListener('input', () => {
+                clearTimeout(updateTimer);
+                updateTimer = setTimeout(updatePreview, 300);
+            });
+        }
+
+        function loadProblem() {
+            const filePath = fileMap[currentCategory](currentProblem);
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', filePath, true);
+            xhr.onload = function() {
+                if (xhr.status === 200 || xhr.status === 0) {
+                    const code = xhr.responseText;
+                    originalCode = code;
+                    document.getElementById('codeEditor').value = code;
+                    updatePreview();
+                } else {
+                    document.getElementById('codeEditor').value = `Error loading code: ${xhr.status}`;
+                }
+            };
+            xhr.onerror = function() {
+                document.getElementById('codeEditor').value = 'Error: Could not load code. Ensure you are running through a web server.';
+            };
+            xhr.send();
+        }
+
+        function updatePreview() {
+            const code = document.getElementById('codeEditor').value;
+            const preview = document.getElementById('previewPanel');
+
+            if (currentCategory === 'react') {
+                renderReactPreview(code, preview);
+                return;
+            }
+
+            if (currentCategory === 'php') {
+                // For PHP, load from PHP server
+                try {
+                    const filePath = fileMap[currentCategory](currentProblem);
+                    const iframe = document.createElement('iframe');
+                    iframe.setAttribute('sandbox', 'allow-scripts allow-forms allow-popups');
+                    iframe.src = `http://localhost:8001/${filePath}`;
+                    iframe.style.width = '100%';
+                    iframe.style.height = '100%';
+                    iframe.style.border = 'none';
+
+                    preview.innerHTML = '';
+                    preview.appendChild(iframe);
+                } catch (error) {
+                    preview.innerHTML = '<div class="error-box">Error loading PHP file. Make sure PHP server is running on port 8001.</div>';
+                }
+                return;
+            }
+
+            try {
+                const iframe = document.createElement('iframe');
+                iframe.setAttribute('sandbox', 'allow-scripts allow-forms allow-popups');
+                iframe.setAttribute('srcdoc', code);
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+                iframe.style.border = 'none';
+
+                preview.innerHTML = '';
+                preview.appendChild(iframe);
+            } catch (error) {
+                console.error('Error rendering preview:', error);
+                preview.innerHTML = '<div class="error-box">Error rendering preview. Please check your code for syntax errors.</div>';
+            }
+        }
+
+        function renderReactPreview(code, preview) {
+            try {
+                const htmlContent = `
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <meta charset="UTF-8">
+                        <title>React Preview</title>
+                        <style>
+                            * { margin: 0; padding: 0; box-sizing: border-box; }
+                            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; background: #f5f5f5; }
+                            #root { background: white; padding: 20px; border-radius: 5px; min-height: 400px; }
+                            button { padding: 8px 16px; margin: 5px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; }
+                            button:hover { background: #764ba2; }
+                            input, textarea { padding: 8px; margin: 5px 0; font-size: 14px; border: 1px solid #ddd; border-radius: 4px; }
+                            h1, h2, h3 { color: #333; margin: 10px 0; }
+                            p { color: #666; margin: 10px 0; }
+                            .error { color: red; padding: 20px; background: #f8d7da; border-radius: 5px; }
+                            .loading { text-align: center; padding: 40px; color: #666; }
+                        </style>
+                    </head>
+                    <body>
+                        <div id="root"><div class="loading">Loading React...</div></div>
+                        <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"><\/script>
+                        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"><\/script>
+                        <script src="https://unpkg.com/@babel/standalone/babel.min.js"><\/script>
+                        <script>
+                            // Set timeout for loading
+                            setTimeout(function() {
+                                if (!window.React) {
+                                    document.getElementById('root').innerHTML = '<div class="error"><h3>Failed to load React</h3><p>Check your internet connection and try again.</p></div>';
+                                }
+                            }, 5000);
+                        <\/script>
+                        <script type="text/babel">
+                            try {
+                                ${code}
+                                
+                                // Wait for React to be ready
+                                if (window.React && window.ReactDOM) {
+                                    if (typeof App !== 'undefined') {
+                                        const root = ReactDOM.createRoot(document.getElementById('root'));
+                                        root.render(<App />);
+                                    } else {
+                                        const root = ReactDOM.createRoot(document.getElementById('root'));
+                                        root.render(
+                                            <div className="error">
+                                                <h3>Error: No App component found</h3>
+                                                <p>Please define an App component in your code.</p>
+                                            </div>
+                                        );
+                                    }
+                                } else {
+                                    document.getElementById('root').innerHTML = '<div class="error"><h3>React not loaded</h3><p>Please wait and refresh.</p></div>';
+                                }
+                            } catch (error) {
+                                console.error('Error:', error);
+                                document.getElementById('root').innerHTML = '<div class="error"><h3>Error: ' + error.message + '</h3></div>';
+                            }
+                        <\/script>
+                    </body>
+                    </html>
+                `;
+
+                // Create blob and use it as iframe src
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const blobUrl = URL.createObjectURL(blob);
+                
+                const iframe = document.createElement('iframe');
+                iframe.src = blobUrl;
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+                iframe.style.border = 'none';
+                iframe.style.backgroundColor = 'white';
+
+                preview.innerHTML = '';
+                preview.appendChild(iframe);
+            } catch (error) {
+                console.error('Error rendering React preview:', error);
+                preview.innerHTML = '<div class="error-box">Error rendering React preview.<br><small>' + error.message + '</small></div>';
+            }
+        }
+
+        function resetCode() {
+            if (confirm('Reset to original code?')) {
+                document.getElementById('codeEditor').value = originalCode;
+                updatePreview();
+            }
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+
+        // Load on page load
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>

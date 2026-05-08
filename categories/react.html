@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React - Problem Statements</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            color: #667eea;
+            font-size: 32px;
+        }
+
+        .back-btn {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .back-btn:hover {
+            background: #764ba2;
+        }
+
+        .problems-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .problem-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .problem-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            margin-bottom: 10px;
+        }
+
+        .problem-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .problem-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .view-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .view-btn:hover {
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚛️ React Problem Statements</h1>
+            <a href="../index.html" class="back-btn">← Back to Home</a>
+        </header>
+
+        <div class="problems-list">
+            <div class="problem-card">
+                <div class="problem-number">1</div>
+                <div class="problem-title">Functional Components & Props</div>
+                <div class="problem-description">Create a functional component that accepts props and displays a personalized message.</div>
+                <a href="../viewer.html?category=react&problem=1" class="view-btn">View Code & Output</a>
+            </div>
+
+            <div class="problem-card">
+                <div class="problem-number">2</div>
+                <div class="problem-title">React Problem Statement 2</div>
+                <div class="problem-description">Explore state management and hooks.</div>
+                <a href="../viewer.html?category=react&problem=2" class="view-btn">View Code & Output</a>
+            </div>
+
+            <div class="problem-card">
+                <div class="problem-number">3</div>
+                <div class="problem-title">React Problem Statement 3</div>
+                <div class="problem-description">Master component composition and lifecycle.</div>
+                <a href="../viewer.html?category=react&problem=3" class="view-btn">View Code & Output</a>
+            </div>
+
+            <div class="problem-card">
+                <div class="problem-number">4</div>
+                <div class="problem-title">React Problem Statement 4</div>
+                <div class="problem-description">Learn form handling and validation.</div>
+                <a href="../viewer.html?category=react&problem=4" class="view-btn">View Code & Output</a>
+            </div>
+
+            <div class="problem-card">
+                <div class="problem-number">5</div>
+                <div class="problem-title">React Problem Statement 5</div>
+                <div class="problem-description">Advanced React patterns and optimization.</div>
+                <a href="../viewer.html?category=react&problem=5" class="view-btn">View Code & Output</a>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2024 Web Development Assignment Portal</p>
+        </footer>
+    </div>
+</body>
+</html>

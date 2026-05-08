@@ -1,0 +1,76 @@
+<!-- Problem Statement 3
+Write a HTML code for the following snapshot.(create a form)
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Form Example</title>
+<style>
+body {
+background: #dc0606;
+font-family: Arial, sans-serif;
+}
+.container { width: 700px;
+margin: 30px auto; background: #058fe5; padding: 20px; border-radius: 4px;
+}
+fieldset {
+margin-bottom: 20px; padding: 15px;
+}
+legend {
+padding: 0 10px;
+}
+label {
+display: inline-block; width: 120px;
+margin-bottom: 10px;
+}
+
+input[type="text"], input[type="date"], input[type="tel"] { width: 200px;
+}
+
+.buttons {
+
+margin-top: 10px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<form>
+<fieldset>
+<legend>Basic information</legend>
+<label>Full name:</label>
+<input type="text"><br>
+<label>Birth date:</label>
+<input type="date"><br>
+<label>Gender:</label>
+<input type="radio" name="gender"> Male
+<input type="radio" name="gender"> Female<br>
+<label>Address:</label>
+<input type="text"><br>
+<label>Phone number:</label>
+<input type="tel"><br>
+</fieldset>
+<fieldset>
+<legend>Extra information</legend>
+<label>Interests:</label>
+<input type="checkbox"> Books
+<input type="checkbox"> Movies
+<input type="checkbox"> Videogames<br><br>
+
+<label>Favorite color:</label>
+<input type="color">
+</fieldset>
+
+<div class="buttons">
+<input type="submit" value="Send data">
+<input type="reset" value="Reset form">
+</div>
+
+</form>
+</div>
+
+</body>
+</html>
